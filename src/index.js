@@ -1,14 +1,21 @@
+import "./index.css";
+
+import App from "./components/App";
+import { BrowserRouter } from "react-router-dom";
+import CustomThemeProvider from "./context/CustomThemeProvider";
+import ModalProvider from "./context/ModalProvider";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import "./index.css";
-import App from "./components/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <CustomThemeProvider>
+        <ModalProvider>
+          <App />
+        </ModalProvider>
+      </CustomThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

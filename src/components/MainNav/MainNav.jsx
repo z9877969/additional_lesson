@@ -1,27 +1,32 @@
 import { NavLink, useLocation } from "react-router-dom";
 
-const getActiveStyles = ({ isActive }) =>
-  !isActive ? { color: "green" } : { color: "red" };
+import { styled } from "styled-components";
+
+const getFlex = (theme) => {
+  return `
+    display: flex;
+    justify-content: center;
+
+  `;
+};
+
+const StyledNav = styled(NavLink)`
+  ${({ theme }) => getFlex(theme)}
+  color: ${({ theme }) => {
+    return theme.color.primary;
+  }};
+  &.active {
+    color: ${({ theme }) => theme.color.active};
+  }
+`;
 
 const MainNav = () => {
   const location = useLocation();
-  console.log("location :>> ", location);
   return (
     <nav>
-      <NavLink style={getActiveStyles} to="/">
-        Home
-      </NavLink>
-      <NavLink
-        style={getActiveStyles}
-        // className={({ isActive }) => {
-        //   return isActive ? "activeClass" : "standartClass";
-        // }}
-        to="/about"
-      >
-        About
-      </NavLink>
-      <NavLink
-        style={getActiveStyles}
+      <StyledNav to="/">Home</StyledNav>
+      <StyledNav to="/about">About</StyledNav>
+      <StyledNav
         to={{
           pathname: "/contacts",
           search: "q=21&color=red",
@@ -29,7 +34,7 @@ const MainNav = () => {
         state={location}
       >
         Contacts
-      </NavLink>
+      </StyledNav>
     </nav>
   );
 };
